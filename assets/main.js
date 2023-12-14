@@ -352,11 +352,11 @@ const database = [
   },
 ];
 
+// Adding unit conversion logic
+
 // console.log(database[1].units[0],database[1].units[1],database[2].units[2]);
 const unit = database[1].units;
 const unitSplit = +unit.split(" ", 1)[0];
-console.log(typeof unitSplit);
-// Adding unit conversion logic
 
 const convertEl = document.querySelector("#convert");
 
