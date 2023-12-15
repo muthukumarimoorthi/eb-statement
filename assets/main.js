@@ -73,28 +73,28 @@ const database = [
     id: 11,
     holderName: "Kailey Cochran",
     holderAddress: "10826 Pointe Royal Drive, Bakersfield CA 93311",
-    units: "259 kWh"
+    units: "259 kWh",
   },
   {
     id: 12,
     accountNum: 1029384767,
     holderName: "Danny Conner",
     holderAddress: "6244 Sun River Drive, Sacramento CA 95824",
-    units: "500 kWh"
+    units: "500 kWh",
   },
   {
     id: 13,
     accountNum: 1029384768,
     holderName: "Alondra Estrada",
     holderAddress: "6244 Sun River Drive, Sacramento CA 95824",
-    units: "800 kWh"
+    units: "800 kWh",
   },
   {
     id: 14,
     accountNum: 1029384769,
     holderName: "Phoenix Donaldson",
     holderAddress: "6431 Shattuck Avenue, Oakland CA 94609",
-    units: "799 kWh"
+    units: "799 kWh",
   },
   {
     id: 15,
@@ -343,32 +343,62 @@ const database = [
   },
   {
     id: 50,
-    accountNum: 1029384804,
+    accountNum: 1029384805,
     holderName: "Kairo Hester",
     holderAddress: "3538 Mendenhall Court, Pleasanton CA 94588",
     units: "700 kWh",
   },
 ];
 
+const input = document.getElementById("input");
+const submitBtn = document.getElementById("submit");
+const accountNumberEl = document.getElementById("accountNumber");
+const accountHolderEl = document.getElementById("accountHolder");
+const addressEl = document.getElementById("address");
+const consumedUnitsEl = document.getElementById("consumedUnits");
+const totalAmountEl = document.getElementById("totalAmount");
+const mainDiv = document.getElementById("mainDiv");
+
+submitBtn.addEventListener("click", () => {
+  let inputVal = +input.value;
+  if (inputVal === "") {
+    alert("Account Number should not be empty");
+  } else {
+    mainDiv.classList.remove("hidden");
+    consumer(inputVal);
+  }
+});
+
+function consumer(inputVal) {
+  const consumerDetails = database.find((val) => {
+    return val.accountNum === inputVal;
+  });
+  const consumedUnits = consumerDetails.units;
+  //display
+  accountNumberEl.textContent = consumerDetails.accountNum;
+  accountHolderEl.textContent = consumerDetails.holderName;
+  addressEl.textContent = consumerDetails.holderAddress;
+  consumedUnitsEl.textContent = consumedUnits;
+  split(consumedUnits);
+}
 // Adding unit conversion logic
 
 // console.log(database[1].units[0],database[1].units[1],database[2].units[2]);
-const unit = database[1].units;
-const unitSplit = +unit.split(" ", 1)[0];
-
-const convertEl = document.querySelector("#convert");
+function split(units) {
+  const unitSplit = +units.split(" ", 1)[0];
+  conversion(unitSplit);
+}
 
 function conversion(unitSplit) {
   if (unitSplit > 1 && unitSplit <= 100) {
-    console.log(unitSplit * 10);
+    totalAmountEl.textContent = unitSplit * 10;
   } else if (unitSplit > 100 && unitSplit <= 150) {
-    console.log(unitSplit * 12);
+    totalAmountEl.textContent = unitSplit * 12;
   } else if (unitSplit > 150 && unitSplit <= 200) {
-    console.log(unitSplit * 15);
+    totalAmountEl.textContent = unitSplit * 15;
   } else if (unitSplit > 200 && unitSplit <= 250) {
-    console.log(unitSplit * 10);
+    totalAmountEl.textContentunitSplit * 10;
   } else {
-    console.log(unitSplit * 18);
+    totalAmountEl.textContent = unitSplit * 18;
   }
 }
-conversion(unitSplit);
